@@ -13,14 +13,15 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 /**
  * @author murugan
  *
- */     
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests(authorize -> authorize.antMatchers("/").permitAll()).authorizeRequests().anyRequest()
+		http.authorizeRequests(authorize -> authorize.antMatchers("/", "/webjars/**", "/resources/**", "/login")
+				.permitAll().antMatchers("/beers/find", "/beers").permitAll()).authorizeRequests().anyRequest()
 				.authenticated().and().formLogin().and().httpBasic();
 	}
 
